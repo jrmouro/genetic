@@ -5,11 +5,11 @@
  */
 package com.jrmouro.genetic.evolutionstrategies.evolution;
 
-import com.jrmouro.genetic.evolutionstrategies.evolution.IevolutionFunction;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeSD;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeSniffer;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeScout;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import com.jrmouro.genetic.chromosome.ChromosomeValidity;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +39,7 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
         }
 
         ChromosomeSD c = (ChromosomeSD) original;
-        ChromosomeSD sc = new ChromosomeScout(c.getCopyListUtil(), c.getFitnessFunction(), c.getSd());
+        ChromosomeSD sc = new ChromosomeScout(c.getCopyListUtil(), c.getFitnessFunction(), c.getSd(), c.getValidityRepresentation());
 
         for (int i = 0; i < n; i++) {
             
@@ -47,7 +47,7 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
 
             sc = (ChromosomeSD) sc.evolve(max);
 
-            ChromosomeSD sn = new ChromosomeSniffer(sc.getCopyListUtil(), sc.getFitnessFunction(), sc.getSd(), this.sniff);;
+            ChromosomeSD sn = new ChromosomeSniffer(sc.getCopyListUtil(), sc.getFitnessFunction(), sc.getSd(), this.sniff, sc.getValidityRepresentation());
 
             for (int j = 0; j < sniff; j++) {
                 sn = (ChromosomeSD) sn.evolve(max);
@@ -67,7 +67,7 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
 
         }
         
-        //System.out.println("Chromosome: " + c);
+        
 
         return c;
 

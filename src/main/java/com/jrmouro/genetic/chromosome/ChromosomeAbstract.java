@@ -18,19 +18,25 @@ import org.apache.commons.math3.genetics.InvalidRepresentationException;
 /**
  *
  * @author ronaldo
+ * @param <T>
  */
-public abstract class ChromosomeAbstract<T> extends AbstractListChromosome<T> implements IevolutionStrategy, ChromosomeUtil<T>, ChromosomeNormalize<T>{
+public abstract class ChromosomeAbstract<T> extends AbstractListChromosome<T> implements ChromosomeValidity, IevolutionStrategy, ChromosomeUtil<T>, ChromosomeNormalize<T>{
 
-    public ChromosomeAbstract(List<T> representation) throws InvalidRepresentationException {
+    final ValidityRepresentation<T> validityRepresentation;
+    
+    public ChromosomeAbstract(List<T> representation, ValidityRepresentation<T> validityRepresentation) throws InvalidRepresentationException {
         super(representation);
+        this.validityRepresentation = validityRepresentation;
     }
 
-    public ChromosomeAbstract(T[] representation) throws InvalidRepresentationException {
+    public ChromosomeAbstract(T[] representation, ValidityRepresentation<T> validityRepresentation) throws InvalidRepresentationException {
         super(representation);
+        this.validityRepresentation = validityRepresentation;
     }
 
-    public ChromosomeAbstract(List<T> representation, boolean copyList) {
+    public ChromosomeAbstract(List<T> representation, boolean copyList, ValidityRepresentation<T> validityRepresentation) {
         super(representation, copyList);
+        this.validityRepresentation = validityRepresentation;
     }
 
     @Override
@@ -45,6 +51,18 @@ public abstract class ChromosomeAbstract<T> extends AbstractListChromosome<T> im
             ret.add(d);
         return ret;
     }
+
+    @Override
+    public boolean isValid() {
+        return this.validityRepresentation.isValid(this.getRepresentation());
+    }
+
+    public ValidityRepresentation<T> getValidityRepresentation() {
+        return validityRepresentation;
+    }
+ 
+    
+    
     
     public abstract ChromosomeAbstract<T> getRandom();
     

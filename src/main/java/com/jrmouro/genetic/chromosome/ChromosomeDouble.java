@@ -21,18 +21,28 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
     
     final protected FitnessFunction fitnessFunction;
 
-    public ChromosomeDouble(List<Double> representation, FitnessFunction fitnessFunction) throws InvalidRepresentationException {
-        super(representation);
+    public ChromosomeDouble(
+            List<Double> representation, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
 
-    public ChromosomeDouble(Double[] representation, FitnessFunction fitnessFunction) throws InvalidRepresentationException {
-        super(representation);
+    public ChromosomeDouble(
+            Double[] representation, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
 
-    public ChromosomeDouble(List<Double> representation, boolean copyList, FitnessFunction fitnessFunction) {
-        super(representation, copyList);
+    public ChromosomeDouble(
+            List<Double> representation, 
+            boolean copyList, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) {
+        super(representation, copyList, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
 
@@ -52,7 +62,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
 
     @Override
     public AbstractListChromosome<Double> newFixedLengthChromosome(List<Double> chromosomeRepresentation) {
-        return new ChromosomeDouble(chromosomeRepresentation, true, this.fitnessFunction);
+        return new ChromosomeDouble(chromosomeRepresentation, true, this.fitnessFunction, this.validityRepresentation);
     }
 
     @Override
@@ -71,8 +81,14 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
             double zi = n0.inverseCumulativeProbability(new Random().nextDouble());
             representation.add(zi + this.getRepresentation().get(i));
         }
+        
+        ChromosomeAbstract<Double> ret = new ChromosomeDouble(representation, this.getFitnessFunction(), this.validityRepresentation);
+        
+        if(ret.isValid())
+            return ret;
                       
-        return new ChromosomeDouble(representation, this.getFitnessFunction());
+        return this;
+        
     }
 
     @Override
@@ -98,7 +114,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
         for (int i = 0; i < list.size(); i++) {
             list.set(i, Math.abs((min - list.get(i)) / range));
         }
-        return new ChromosomeDouble(list, this.getFitnessFunction());
+        return new ChromosomeDouble(list, this.getFitnessFunction(), this.validityRepresentation);
     }
 
     @Override
@@ -109,8 +125,15 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
             list.add(Math.random());
         }
                 
-        return new ChromosomeDouble(list, this.getFitnessFunction()); 
+        return new ChromosomeDouble(list, this.getFitnessFunction(), this.validityRepresentation); 
     }
+
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+    
+    
 
        
     

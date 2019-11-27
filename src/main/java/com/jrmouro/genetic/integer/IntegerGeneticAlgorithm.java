@@ -5,11 +5,12 @@
  */
 package com.jrmouro.genetic.integer;
 
+import com.jrmouro.genetic.chromosome.ChromosomeValidity;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import org.apache.commons.math3.exception.OutOfRangeException;
 import org.apache.commons.math3.genetics.CrossoverPolicy;
 import org.apache.commons.math3.genetics.GeneticAlgorithm;
-import org.apache.commons.math3.genetics.Population;
 import org.apache.commons.math3.genetics.StoppingCondition;
 
 /**
@@ -18,13 +19,13 @@ import org.apache.commons.math3.genetics.StoppingCondition;
  */
 public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
     
-    private Population initialPolulation = null;
+    private IntegerPopulation initialPolulation = null;
     private StoppingCondition stoppingCondition = null;
     
     public IntegerGeneticAlgorithm( int populationSize, 
                                     int populationReuse, 
                                     int populationLimit, 
-                                    ChromosomeAbstractValidity<Integer> validity,
+                                    ValidityRepresentation<Integer> validityRepresentation,
                                     FitnessFunction<Integer> fitnessFunction, 
                                     int sizeChromosome, 
                                     int leftBoundChromosome, 
@@ -45,11 +46,11 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
         this.initialPolulation = IntegerPopulation.getRandom( populationSize, 
                                                     populationReuse,
                                                     populationLimit, 
-                                                    validity,
                                                     fitnessFunction, 
                                                     sizeChromosome, 
                                                     leftBoundChromosome, 
-                                                    rightBoundChromosome);
+                                                    rightBoundChromosome,
+                                                    validityRepresentation);
         
         this.stoppingCondition = new IntegerStoppingCondition(generations);
     }
@@ -57,7 +58,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
     public IntegerGeneticAlgorithm( int populationSize, 
                                     int populationReuse,
                                     int populationLimit, 
-                                    ChromosomeAbstractValidity<Integer> validity,
+                                    ValidityRepresentation<Integer> validityRepresentation,
                                     FitnessFunction fitnessFunction, 
                                     int sizeChromosome, 
                                     int leftBoundChromosome, 
@@ -78,17 +79,44 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
         this.initialPolulation = IntegerPopulation.getRandom( populationSize, 
                                                     populationReuse,
                                                     populationLimit, 
-                                                    validity,
                                                     fitnessFunction, 
                                                     sizeChromosome, 
                                                     leftBoundChromosome, 
-                                                    rightBoundChromosome);
+                                                    rightBoundChromosome, 
+                                                    validityRepresentation);
         
         this.stoppingCondition = stoppingCondition;
     }
+    
+    public IntegerGeneticAlgorithm( IntegerPopulation initialPolulation, 
+                                    int populationReuse, 
+                                    int populationLimit,
+                                    FitnessFunction<Integer> fitnessFunction, 
+                                    int sizeChromosome, 
+                                    int leftBoundChromosome, 
+                                    int rightBoundChromosome,
+                                    int generations,                                    
+                                    int crossoverPoints,
+                                    double crossoverRate, 
+                                    double mutationRate,
+                                    double mutationRateGene,
+                                    int aritySelection
+    ){
+        super(  new IntegerCrossover(crossoverPoints), 
+                crossoverRate, 
+                new IntegerMutation(mutationRateGene), 
+                mutationRate, 
+                new IntegerSelection(aritySelection));
+        
+        this.initialPolulation = initialPolulation;
+        
+        this.stoppingCondition = new IntegerStoppingCondition(generations);
+    }
 
-    public IntegerChromosome run() {
-        return (IntegerChromosome)this.evolve(initialPolulation, stoppingCondition).getFittestChromosome();
+    
+    
+    public IntegerPopulation run() {
+        return (IntegerPopulation)this.evolve(initialPolulation, stoppingCondition);
     }
     
     

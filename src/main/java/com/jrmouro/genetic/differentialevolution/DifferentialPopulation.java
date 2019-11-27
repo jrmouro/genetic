@@ -5,6 +5,7 @@
  */
 package com.jrmouro.genetic.differentialevolution;
 
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,28 +38,32 @@ public class DifferentialPopulation extends ListPopulation{
         return ret;
     }
     
-    public static DifferentialPopulation getRandom( int size,
-                                                    double factorDifference,
-                                                    FitnessFunction fitnessFunction, 
-                                                    int sizeChromosome,
-                                                    double boundLeft, 
-                                                    double boundRight){
+    public static DifferentialPopulation getRandom( 
+            int size,
+            double factorDifference,
+            FitnessFunction fitnessFunction, 
+            int sizeChromosome,
+            double boundLeft, 
+            double boundRight, 
+            ValidityRepresentation<Double> validityRepresentation){
         List<Chromosome> ret = new ArrayList();
         for (int i = 0; i < size; i++) {
-            ret.add(DifferentialChromosome.getRandom(factorDifference, fitnessFunction, sizeChromosome, boundLeft, boundRight));
+            ret.add(DifferentialChromosome.getRandom(factorDifference, fitnessFunction, sizeChromosome, boundLeft, boundRight, validityRepresentation));
         }
         return new DifferentialPopulation(ret, size);
     }
     
     
-    public static DifferentialPopulation getRandom(int size, 
+    public static DifferentialPopulation getRandom(
+            int size, 
             FitnessFunction fitnessFunction, 
             int sizeChromosome,
             double boundLeft, 
-            double boundRight){
+            double boundRight, 
+            ValidityRepresentation<Double> validityRepresentation){
         List<Chromosome> ret = new ArrayList();
         for (int i = 0; i < size; i++) {
-            ret.add(DifferentialChromosome.getRandom(new Random().nextDouble(), fitnessFunction, sizeChromosome, boundLeft, boundRight));
+            ret.add(DifferentialChromosome.getRandom(new Random().nextDouble(), fitnessFunction, sizeChromosome, boundLeft, boundRight, validityRepresentation));
         }
         return new DifferentialPopulation(ret, size);
     }

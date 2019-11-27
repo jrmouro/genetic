@@ -9,8 +9,8 @@ import com.jrmouro.genetic.integer.IntegerChromosome;
 import com.jrmouro.genetic.integer.IntegerGeneticAlgorithm;
 import com.jrmouro.genetic.integer.TargetMinStoppingCondition;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
-import com.jrmouro.genetic.integer.ChromosomeIntegerValidity;
 import com.jrmouro.genetic.integer.IntegerCrossover;
 import java.util.ArrayList;
 import java.util.List;
@@ -223,12 +223,11 @@ public class IntegerGAJUnitTest {
                 20, //population size
                 5,
                 30, //population limit
-                new ChromosomeIntegerValidity() {
+                new ValidityRepresentation<Integer>() {
                     @Override
-                    public boolean isRepresentationValid(List<Integer> representation) {
+                    public boolean isValid(List<Integer> representation) {
                         return true;
                     }
-
                 },
                 fit, // fitness function
                 10, //chromosome size
@@ -241,7 +240,7 @@ public class IntegerGAJUnitTest {
                 .3, // mutation arity
                 2); // selection arity
 
-        IntegerChromosome c = ga.run();
+        IntegerChromosome c = (IntegerChromosome) ga.run().getFittestChromosome();
         List<Integer> p = CaixeiroFitness.path(c.getListRepresentation());
         double d = CaixeiroFitness.distance(m, p);
 

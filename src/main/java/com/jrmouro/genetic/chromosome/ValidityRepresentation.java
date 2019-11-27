@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jrmouro.genetic.integer;
+package com.jrmouro.genetic.chromosome;
 
-import org.apache.commons.math3.genetics.Chromosome;
+import java.util.List;
 
 /**
  *
  * @author ronaldo
  */
-public interface ChromosomeValidity {
-    public boolean isValid(Chromosome chromosome);
+public interface ValidityRepresentation<T> {
+    public boolean isValid(List<T> representation); 
 }

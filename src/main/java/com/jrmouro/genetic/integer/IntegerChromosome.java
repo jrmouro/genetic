@@ -6,6 +6,8 @@
 package com.jrmouro.genetic.integer;
 
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import com.jrmouro.genetic.chromosome.ChromosomeValidity;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,30 +23,42 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
 
     final private FitnessFunction<Integer> fitnessFunction;
     final private int leftBound, rightBound;
-    final private ChromosomeAbstractValidity<Integer> validity;
 
-    public IntegerChromosome(ChromosomeAbstractValidity<Integer> validity, FitnessFunction<Integer> fitnessFunction, List<Integer> representation, int leftBound, int rightBound) throws InvalidRepresentationException {
-        super(representation);
+    public IntegerChromosome(
+            FitnessFunction<Integer> fitnessFunction, 
+            List<Integer> representation, 
+            int leftBound, 
+            int rightBound, 
+            ValidityRepresentation<Integer> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        this.validity = validity;
     }
 
-    public IntegerChromosome(ChromosomeAbstractValidity<Integer> validity, FitnessFunction<Integer> fitnessFunction, Integer[] representation, int leftBound, int rightBound) throws InvalidRepresentationException {
-        super(representation);
+    public IntegerChromosome(
+            FitnessFunction<Integer> fitnessFunction, 
+            Integer[] representation, 
+            int leftBound, 
+            int rightBound, 
+            ValidityRepresentation<Integer> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        this.validity = validity;
     }
 
-    public IntegerChromosome(ChromosomeAbstractValidity<Integer> validity, FitnessFunction<Integer> fitnessFunction, List<Integer> representation, boolean copyList, int leftBound, int rightBound) {
-        super(representation, copyList);
+    public IntegerChromosome(
+            FitnessFunction<Integer> fitnessFunction, 
+            List<Integer> representation, 
+            boolean copyList, 
+            int leftBound, 
+            int rightBound, 
+            ValidityRepresentation<Integer> validityRepresentation) {
+        super(representation, copyList, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
         this.rightBound = rightBound;
-        this.validity = validity;
     }
 
     public int getLeftBound() {
@@ -63,13 +77,6 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
         return fitnessFunction;
     }
 
-    public ChromosomeAbstractValidity<Integer> getValidity() {
-        return validity;
-    }
-
-    public boolean isValid() {
-        return this.validity.isValid(this);
-    }
 
     @Override
     public double fitness() {
@@ -85,40 +92,45 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
     public AbstractListChromosome<Integer> newFixedLengthChromosome(
             List<Integer> chromosomeRepresentation) {
         return new IntegerChromosome(
-                this.validity, 
                 this.fitnessFunction, 
                 chromosomeRepresentation, 
                 leftBound, 
-                rightBound);
+                rightBound,
+                this.getValidityRepresentation());
     }
 
     public static IntegerChromosome getRandom(
-            ChromosomeAbstractValidity<Integer> validity, 
             FitnessFunction fitnessFunction, 
             int size, 
             int leftBound, 
-            int rightBound) {
+            int rightBound, 
+            ValidityRepresentation<Integer> validityRepresentation) {
 
-        List<Integer> ret = new ArrayList();
+        List<Integer> list = new ArrayList();
+        
         Random r = new Random();
+        
         while (true) {
-            ret.clear();
+            
+            list.clear();
             
             for (int i = 0; i < size; i++) {
-                ret.add(r.nextInt((rightBound - leftBound) + 1) + leftBound);
+                list.add(r.nextInt((rightBound - leftBound) + 1) + leftBound);
             }
             
-            if(validity.isRepresentationValid(ret))
-                break;
+            IntegerChromosome ret = new IntegerChromosome(fitnessFunction, list, leftBound, rightBound, validityRepresentation);
+            
+            if(ret.isValid())
+                return ret;
         }
         
-        return new IntegerChromosome(validity, fitnessFunction, ret, leftBound, rightBound);
+        
     }
 
     @Override
     public ChromosomeAbstract<Integer> getRandom() {
 
-        return getRandom(this.validity, this.getFitnessFunction(), this.getListRepresentation().size(), leftBound, rightBound);
+        return getRandom(this.getFitnessFunction(), this.getListRepresentation().size(), leftBound, rightBound, this.getValidityRepresentation());
 
     }
 
@@ -144,7 +156,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
         for (int i = 0; i < list.size(); i++) {
             list.set(i, Math.abs((min - list.get(i)) / range));
         }
-        return new IntegerChromosome(this.validity, this.getFitnessFunction(), list, min, max);
+        return new IntegerChromosome(this.getFitnessFunction(), list, min, max, this.getValidityRepresentation());
     }
 
 }

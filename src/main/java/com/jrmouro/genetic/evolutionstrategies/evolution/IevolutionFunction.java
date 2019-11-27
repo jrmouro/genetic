@@ -6,6 +6,7 @@
 package com.jrmouro.genetic.evolutionstrategies.evolution;
 
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import com.jrmouro.genetic.chromosome.ChromosomeValidity;
 
 /**
  *

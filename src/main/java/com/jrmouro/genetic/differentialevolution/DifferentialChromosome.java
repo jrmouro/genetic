@@ -6,6 +6,7 @@
 package com.jrmouro.genetic.differentialevolution;
 
 import com.jrmouro.genetic.chromosome.ChromosomeDouble;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +24,31 @@ public class DifferentialChromosome extends ChromosomeDouble{
     
     final private double factorDifference;
 
-    public DifferentialChromosome(double factorDifference, List<Double> representation, FitnessFunction fitnessFunction) throws InvalidRepresentationException {
-        super(representation, fitnessFunction);
+    public DifferentialChromosome(
+            double factorDifference, 
+            List<Double> representation, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
 
-    public DifferentialChromosome(double factorDifference, Double[] representation, FitnessFunction fitnessFunction) throws InvalidRepresentationException {
-        super(representation, fitnessFunction);
+    public DifferentialChromosome(
+            double factorDifference, 
+            Double[] representation, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+        super(representation, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
 
-    public DifferentialChromosome(double factorDifference, List<Double> representation, boolean copyList, FitnessFunction fitnessFunction) {
-        super(representation, copyList, fitnessFunction);
+    public DifferentialChromosome(
+            double factorDifference, 
+            List<Double> representation, 
+            boolean copyList, 
+            FitnessFunction fitnessFunction, 
+            ValidityRepresentation<Double> validityRepresentation) {
+        super(representation, copyList, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
 
@@ -52,7 +66,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             list.add((one.factorDifference + other.factorDifference) / 2.0 *(one.getRepresentation().get(i) - other.getRepresentation().get(i)));
         }
                 
-        return new DifferentialChromosome(one.factorDifference, list, one.getFitnessFunction());
+        return new DifferentialChromosome(one.factorDifference, list, one.getFitnessFunction(), one.getValidityRepresentation());
     }
     
     public static DifferentialChromosome sum(DifferentialChromosome one, DifferentialChromosome other){
@@ -63,7 +77,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             list.add((one.getRepresentation().get(i) + other.getRepresentation().get(i)));
         }
                 
-        return new DifferentialChromosome((one.factorDifference + other.factorDifference) / 2.0, list, one.getFitnessFunction());
+        return new DifferentialChromosome((one.factorDifference + other.factorDifference) / 2.0, list, one.getFitnessFunction(), one.getValidityRepresentation());
     }
     
     @Override
@@ -76,7 +90,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
 
     @Override
     public AbstractListChromosome<Double> newFixedLengthChromosome(List<Double> chromosomeRepresentation) {
-        return new DifferentialChromosome(this.factorDifference, chromosomeRepresentation, this.getFitnessFunction());
+        return new DifferentialChromosome(this.factorDifference, chromosomeRepresentation, this.getFitnessFunction(), this.getValidityRepresentation());
     }
 
     @Override
@@ -92,13 +106,19 @@ public class DifferentialChromosome extends ChromosomeDouble{
         return super.getRepresentation();
     }
     
-    public static Chromosome getRandom(double factorDifference, FitnessFunction fitnessFunction, int size, double boundLeft, double boundRight){
+    public static Chromosome getRandom(
+            double factorDifference, 
+            FitnessFunction fitnessFunction, 
+            int size, 
+            double boundLeft, 
+            double boundRight, 
+            ValidityRepresentation<Double> validityRepresentation){
         List<Double> ret = new ArrayList();
         Random r = new Random();
         for (int i = 0; i < size; i++) {
             ret.add(boundLeft + (r.nextDouble() * (boundRight - boundLeft)));
         }
-        return new DifferentialChromosome(factorDifference, ret, fitnessFunction);
+        return new DifferentialChromosome(factorDifference, ret, fitnessFunction, validityRepresentation);
     }
     
 }

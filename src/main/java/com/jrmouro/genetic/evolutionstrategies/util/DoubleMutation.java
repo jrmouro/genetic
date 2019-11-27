@@ -18,7 +18,7 @@ import org.apache.commons.math3.genetics.MutationPolicy;
  */
 public class DoubleMutation  implements MutationPolicy{
     
-        
+            
     @Override
     public Chromosome mutate(Chromosome original) throws MathIllegalArgumentException {
         if (!(original instanceof ChromosomeDouble)) {

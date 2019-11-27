@@ -9,7 +9,9 @@ import com.jrmouro.genetic.differentialevolution.DifferentialPopulation;
 import org.junit.Test;
 import com.jrmouro.genetic.differentialevolution.DifferentialGeneticAlgorithm;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
+import java.util.List;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.FixedGenerationCount;
 
@@ -18,11 +20,11 @@ import org.apache.commons.math3.genetics.FixedGenerationCount;
  * @author ronaldo
  */
 public class DifferentialJUnitTest {
-    
+
     @Test
     public void test() {
-        
-        FitnessFunction ff = new FitnessFunction<Double>(){
+
+        FitnessFunction ff = new FitnessFunction<Double>() {
             @Override
             public double fitness(ChromosomeAbstract<Double> chromosome) {
                 double x1 = Math.pow(chromosome.getRepresentation().get(0), 6);
@@ -30,41 +32,53 @@ public class DifferentialJUnitTest {
                 double x3 = -5.0 * Math.cos(chromosome.getRepresentation().get(0));
                 double x4 = 3.0 * Math.pow(chromosome.getRepresentation().get(0), 2);
                 double x5 = 0.2 * chromosome.getRepresentation().get(0);
-                
+
                 return -(x1 + x2 + x3 + x4 + x5 + 5);
             }
-            
+
         };
-        
-        DifferentialPopulation pop1 = DifferentialPopulation.getRandom(10, 0.1, ff, 1, -10.0, 10.0);
-    
-        DifferentialPopulation pop2 = DifferentialPopulation.getRandom(10, ff, 1, -10.5, 10.5);
-        
+
+        DifferentialPopulation pop1 = DifferentialPopulation.getRandom(
+                10, 0.1, ff, 1, -10.0, 10.0,
+                new ValidityRepresentation<Double>() {
+                    @Override
+                    public boolean isValid(List<Double> representation) {
+                        return true;
+                    }
+                });
+
+        DifferentialPopulation pop2 = DifferentialPopulation.getRandom(
+                10, ff, 1, -10.5, 10.5,
+                new ValidityRepresentation<Double>() {
+                    @Override
+                    public boolean isValid(List<Double> representation) {
+                        return true;
+                    }
+                });
+
         DifferentialGeneticAlgorithm de1 = new DifferentialGeneticAlgorithm(
-                                                pop1, 
-                                                new FixedGenerationCount(50),
-                                                .5, 
-                                                .5,                                         
-                                                .2,
-                                                3);
-        
-        
+                pop1,
+                new FixedGenerationCount(50),
+                .5,
+                .5,
+                .2,
+                3);
+
         DifferentialGeneticAlgorithm de2 = new DifferentialGeneticAlgorithm(
-                                                pop2, 
-                                                new FixedGenerationCount(50),
-                                                .5, 
-                                                .5,                                         
-                                                .2,
-                                                3);
-        
+                pop2,
+                new FixedGenerationCount(50),
+                .5,
+                .5,
+                .2,
+                3);
+
         Chromosome best1 = de1.evolve().getFittestChromosome();
-        
+
         System.out.println("best1: " + best1);
-        
+
         Chromosome best2 = de2.evolve().getFittestChromosome();
-        
+
         System.out.println("best2: " + best2);
-        
-        
+
     }
 }

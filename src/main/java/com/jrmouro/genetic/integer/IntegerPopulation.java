@@ -5,6 +5,8 @@
  */
 package com.jrmouro.genetic.integer;
 
+import com.jrmouro.genetic.chromosome.ChromosomeValidity;
+import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,16 +85,16 @@ public class IntegerPopulation extends ListPopulation {
             int size, 
             int reuse, 
             int populationLimit, 
-            ChromosomeAbstractValidity<Integer> validity, 
             FitnessFunction<Integer> fitnessFunction, 
             int sizeChromosome, 
             int leftBound, 
-            int rightBound) {
+            int rightBound,
+            ValidityRepresentation<Integer> validityRepresentation) {
         
         List<Chromosome> ret = new ArrayList();
         Random r = new Random();
         for (int i = 0; i < size; i++) {
-            ret.add(IntegerChromosome.getRandom(validity, fitnessFunction, sizeChromosome, leftBound, rightBound));
+            ret.add(IntegerChromosome.getRandom(fitnessFunction, sizeChromosome, leftBound, rightBound, validityRepresentation));
         }
         return new IntegerPopulation(reuse, ret, populationLimit);
     }

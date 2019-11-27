@@ -63,8 +63,8 @@ public class DifferentialCrossover implements CrossoverPolicy {
         Chromosome c1 = null;
         Chromosome c2 = null;
         if(((DifferentialChromosome) first).getFitnessFunction() != null){
-            c1 = new DifferentialChromosome(((DifferentialChromosome) first).getFactorDifference(), l1, ((DifferentialChromosome) first).getFitnessFunction());
-            c2 = new DifferentialChromosome(((DifferentialChromosome) second).getFactorDifference(), l2, ((DifferentialChromosome) first).getFitnessFunction());
+            c1 = new DifferentialChromosome(((DifferentialChromosome) first).getFactorDifference(), l1, ((DifferentialChromosome) first).getFitnessFunction(), ((DifferentialChromosome) first).getValidityRepresentation());
+            c2 = new DifferentialChromosome(((DifferentialChromosome) second).getFactorDifference(), l2, ((DifferentialChromosome) first).getFitnessFunction(), ((DifferentialChromosome) first).getValidityRepresentation());
         }else{
             try {
                 throw new Exception("FitnessFunction is null");
