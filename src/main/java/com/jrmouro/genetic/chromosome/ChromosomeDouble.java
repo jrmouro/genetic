@@ -128,10 +128,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
         return new ChromosomeDouble(list, this.getFitnessFunction(), this.validityRepresentation); 
     }
 
-    @Override
-    public boolean isValid() {
-        return true;
-    }
+   
     
     
 

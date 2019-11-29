@@ -35,10 +35,18 @@ public final class SimilarityFitnessFunction implements FitnessFunction<Double> 
 
     }
 
+    public double[][] getMatrix() {
+        return matrix;
+    }
+
+    public double[] getResult() {
+        return result;
+    }
+
     @Override
     public double fitness(ChromosomeAbstract<Double> chromosome) {
         Double ss = 0.0;
-        Double [] w = new Double[chromosome.getRepresentation().size()];
+        Double[] w = new Double[chromosome.getRepresentation().size()];
         w = (Double[]) chromosome.getRepresentation().toArray(w);
         if (result != null && w.length >= result.length) {
             int j = 0;
@@ -51,14 +59,18 @@ public final class SimilarityFitnessFunction implements FitnessFunction<Double> 
                 s -= this.result[j++];
                 ss += s * s;
             }
-        }else{
+        } else {
             try {
                 throw new Exception("Chromosome invalid dimensions");
             } catch (Exception ex) {
                 Logger.getLogger(SimilarityFitnessFunction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        if (Double.isNaN(ss) || Double.isInfinite(ss)) 
+            return -Double.MAX_VALUE;
         
+
         return -ss;
     }
 

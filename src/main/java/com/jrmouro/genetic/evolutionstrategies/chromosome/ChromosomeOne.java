@@ -106,7 +106,6 @@ public class ChromosomeOne extends ChromosomeSD {
         representation.add(z0);
 
         ChromosomeDouble child = new ChromosomeOne(sd, representation, this.getFitnessFunction(), this.getValidityRepresentation());
-
         
 
         if (child.isValid()) {
@@ -124,6 +123,8 @@ public class ChromosomeOne extends ChromosomeSD {
             }
             
         }
+        
+        
 
         return this;
 
