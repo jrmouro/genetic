@@ -31,6 +31,9 @@ public class SimilarityEvolutionJUnitTest {
             final de Pedro e Jonas?
         
         
+            w1*Nota1 + w2*Nota2 + ... + wn*Notan = Resultado
+        
+        
          */
         double[][] notas = {
             {5.0, 4.0, 7.0, 6.0}, //Pedro
