@@ -46,11 +46,11 @@ public class SimilarityEvolutionJUnitTest {
         };
 
         SimilarityEvolution se = new SimilarityEvolution(
-                new EvolutionScoutSniffer(200, 0.01),
-                notas,
-                result,
-                2000,
-                0.1,
+                new EvolutionScoutSniffer(200),
+                notas, // Matriz de similaridade
+                result, // b
+                2000, // nr gerações
+                0.1, 
                 true,
                 new ValidityGenotype<Double>() {
                     @Override

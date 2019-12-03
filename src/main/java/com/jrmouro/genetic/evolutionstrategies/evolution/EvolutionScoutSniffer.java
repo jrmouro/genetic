@@ -9,7 +9,6 @@ import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeSD;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeSniffer;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeScout;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
-import com.jrmouro.genetic.chromosome.ChromosomeValidity;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,11 +19,11 @@ import java.util.logging.Logger;
 public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
 
     final private int sniff;
-    final double limit;
+    //final double limit;
 
-    public EvolutionScoutSniffer(int sniff, double limit) {
+    public EvolutionScoutSniffer(int sniff/*, double limit*/) {
         this.sniff = sniff;
-        this.limit = limit;
+        //this.limit = limit;
     }
 
     @Override
