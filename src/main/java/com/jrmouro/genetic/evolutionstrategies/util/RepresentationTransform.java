@@ -12,6 +12,10 @@ import java.util.List;
  *
  * @author ronaldo
  */
-public interface RepresentationTransform<T1,T2> {
-    List<T1> get(ChromosomeAbstract<T2> chromosome, int ini, int fim);
+public abstract class RepresentationTransform<T1,T2> {
+    public abstract List<T1> get(ChromosomeAbstract<T2> chromosome, int ini, int fim);
+    public List<T1> get(ChromosomeAbstract<T2> chromosome){
+        return this.get(chromosome, 0, chromosome.getGenotypeSize());
+    }
+    
 }

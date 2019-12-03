@@ -9,11 +9,11 @@ import com.jrmouro.genetic.differentialevolution.DifferentialPopulation;
 import org.junit.Test;
 import com.jrmouro.genetic.differentialevolution.DifferentialGeneticAlgorithm;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.List;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.FixedGenerationCount;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -27,31 +27,32 @@ public class DifferentialJUnitTest {
         FitnessFunction ff = new FitnessFunction<Double>() {
             @Override
             public double fitness(ChromosomeAbstract<Double> chromosome) {
-                double x1 = Math.pow(chromosome.getRepresentation().get(0), 6);
-                double x2 = -4.8 * Math.pow(chromosome.getRepresentation().get(0), 4);
-                double x3 = -5.0 * Math.cos(chromosome.getRepresentation().get(0));
-                double x4 = 3.0 * Math.pow(chromosome.getRepresentation().get(0), 2);
-                double x5 = 0.2 * chromosome.getRepresentation().get(0);
+                
+                List<Double> repr = chromosome.getGenotype();
+                
+                double x1 = Math.pow(repr.get(0), 6);
+                double x2 = -4.8 * Math.pow(repr.get(0), 4);
+                double x3 = -5.0 * Math.cos(repr.get(0));
+                double x4 = 3.0 * Math.pow(repr.get(0), 2);
+                double x5 = 0.2 * repr.get(0);
 
                 return -(x1 + x2 + x3 + x4 + x5 + 5);
             }
 
         };
 
-        DifferentialPopulation pop1 = DifferentialPopulation.getRandom(
-                10, 0.1, ff, 1, -10.0, 10.0,
-                new ValidityRepresentation<Double>() {
+        DifferentialPopulation pop1 = DifferentialPopulation.getRandom(10, 0.1, ff, 1, -10.0, 10.0,
+                new ValidityGenotype<Double>() {
                     @Override
-                    public boolean isValid(List<Double> representation) {
+                    public boolean isGenotypeValid(List<Double> representation) {
                         return true;
                     }
                 });
 
-        DifferentialPopulation pop2 = DifferentialPopulation.getRandom(
-                10, ff, 1, -10.5, 10.5,
-                new ValidityRepresentation<Double>() {
+        DifferentialPopulation pop2 = DifferentialPopulation.getRandom(10, ff, 1, -10.5, 10.5,
+                new ValidityGenotype<Double>() {
                     @Override
-                    public boolean isValid(List<Double> representation) {
+                    public boolean isGenotypeValid(List<Double> representation) {
                         return true;
                     }
                 });

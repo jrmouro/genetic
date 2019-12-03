@@ -9,13 +9,13 @@ import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import com.jrmouro.genetic.chromosome.ChromosomeDouble;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -27,7 +27,7 @@ public class ChromosomeTwo extends ChromosomeSD {
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
             double sd, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(prepare(representation, sd), fitnessFunction, sd, validityRepresentation);
     }
 
@@ -35,7 +35,7 @@ public class ChromosomeTwo extends ChromosomeSD {
             double sd, 
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, sd, validityRepresentation);
     }
 
@@ -43,7 +43,7 @@ public class ChromosomeTwo extends ChromosomeSD {
             double[] representation, 
             FitnessFunction fitnessFunction, 
             double sd, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(prepare(representation, sd), fitnessFunction, sd, validityRepresentation);
     }
 
@@ -53,7 +53,7 @@ public class ChromosomeTwo extends ChromosomeSD {
     }
 
     @Override
-    public List<Double> getCopyListUtil() {
+    public List<Double> getGenotype() {
         List<Double> ret = new ArrayList();
         int x = this.getRepresentation().size() / 2;
         for (int i = 0; i < x; i++) {
@@ -61,6 +61,13 @@ public class ChromosomeTwo extends ChromosomeSD {
         }
         return ret;
     }
+
+    @Override
+    public int getGenotypeSize() {
+        return super.getGenotypeSize() / 2; 
+    }
+    
+    
 
     static private List<Double> prepare(List<Double> representation, double sd) {
         int t = representation.size();

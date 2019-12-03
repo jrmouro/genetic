@@ -39,7 +39,7 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
         }
 
         ChromosomeSD c = (ChromosomeSD) original;
-        ChromosomeSD sc = new ChromosomeScout(c.getCopyListUtil(), c.getFitnessFunction(), c.getSd(), c.getValidityRepresentation());
+        ChromosomeSD sc = new ChromosomeScout(c.getGenotype(), c.getFitnessFunction(), c.getSd(), c.getValidityRepresentation());
 
         for (int i = 0; i < n; i++) {
             
@@ -47,7 +47,7 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
 
             sc = (ChromosomeSD) sc.evolve(max);
 
-            ChromosomeSD sn = new ChromosomeSniffer(sc.getCopyListUtil(), sc.getFitnessFunction(), sc.getSd(), this.sniff, sc.getValidityRepresentation());
+            ChromosomeSD sn = new ChromosomeSniffer(sc.getGenotype(), sc.getFitnessFunction(), sc.getSd(), this.sniff, sc.getValidityRepresentation());
 
             for (int j = 0; j < sniff; j++) {
                 sn = (ChromosomeSD) sn.evolve(max);
@@ -57,11 +57,11 @@ public class EvolutionScoutSniffer implements IevolutionFunction<Double> {
 
             if (max) {
                 if (r < 0) {
-                    c = (ChromosomeSD) c.newFixedLengthChromosome(sn.getCopyListUtil());
+                    c = (ChromosomeSD) c.newFixedLengthChromosome(sn.getGenotype());
                 }
             } else {
                 if (r > 0) {
-                    c = (ChromosomeSD) c.newFixedLengthChromosome(sn.getCopyListUtil());
+                    c = (ChromosomeSD) c.newFixedLengthChromosome(sn.getGenotype());
                 }
             }
 

@@ -22,48 +22,50 @@ import org.apache.commons.math3.genetics.InvalidRepresentationException;
  */
 public abstract class ChromosomeAbstract<T> extends AbstractListChromosome<T> implements ChromosomeValidity, IevolutionStrategy, ChromosomeUtil<T>, ChromosomeNormalize<T>{
 
-    final ValidityRepresentation<T> validityRepresentation;
+    final ValidityGenotype<T> validityRepresentation;
     
-    public ChromosomeAbstract(List<T> representation, ValidityRepresentation<T> validityRepresentation) throws InvalidRepresentationException {
+    public ChromosomeAbstract(List<T> representation, ValidityGenotype<T> validityRepresentation) throws InvalidRepresentationException {
         super(representation);
         this.validityRepresentation = validityRepresentation;
     }
 
-    public ChromosomeAbstract(T[] representation, ValidityRepresentation<T> validityRepresentation) throws InvalidRepresentationException {
+    public ChromosomeAbstract(T[] representation, ValidityGenotype<T> validityRepresentation) throws InvalidRepresentationException {
         super(representation);
         this.validityRepresentation = validityRepresentation;
     }
 
-    public ChromosomeAbstract(List<T> representation, boolean copyList, ValidityRepresentation<T> validityRepresentation) {
+    public ChromosomeAbstract(List<T> representation, boolean copyList, ValidityGenotype<T> validityRepresentation) {
         super(representation, copyList);
         this.validityRepresentation = validityRepresentation;
     }
 
+    
     @Override
-    public List<T> getRepresentation() {
-        return super.getRepresentation(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<T> getCopyListUtil() {
-        List<T> ret = new ArrayList();   
-        for(T d: this.getRepresentation())
-            ret.add(d);
+    public List<T> getGenotype() {  
+        List<T> ret = new ArrayList();
+        for (T t : this.getRepresentation()) {
+            ret.add(t);
+        }
         return ret;
     }
 
     @Override
-    public boolean isValid() {
-        return this.validityRepresentation.isValid(this.getRepresentation());
+    public int getGenotypeSize() {
+        return this.getRepresentation().size();
     }
 
-    public ValidityRepresentation<T> getValidityRepresentation() {
+    
+    
+    
+    @Override
+    public boolean isValid() {
+        return this.validityRepresentation.isGenotypeValid(this.getGenotype());
+    }
+
+    public ValidityGenotype<T> getValidityRepresentation() {
         return validityRepresentation;
     }
  
-    
-    
-    
     public abstract ChromosomeAbstract<T> getRandom();
     
     

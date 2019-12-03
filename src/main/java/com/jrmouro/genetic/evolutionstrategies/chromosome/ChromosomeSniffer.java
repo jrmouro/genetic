@@ -10,13 +10,13 @@ import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeOne;
 import com.jrmouro.genetic.chromosome.ChromosomeDouble;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ChromosomeSniffer extends ChromosomeOne {
             FitnessFunction fitnessFunction, 
             double sd, 
             double limit, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, sd, validityRepresentation);
         this.limit = limit;
     }
@@ -41,7 +41,7 @@ public class ChromosomeSniffer extends ChromosomeOne {
             double limit, 
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(sd, representation, fitnessFunction, validityRepresentation);
         this.limit = limit;
     }
@@ -51,7 +51,7 @@ public class ChromosomeSniffer extends ChromosomeOne {
             FitnessFunction fitnessFunction, 
             double sd, 
             double limit, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, sd, validityRepresentation);
         this.limit = limit;
     }

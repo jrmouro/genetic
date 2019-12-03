@@ -9,12 +9,12 @@ import com.jrmouro.genetic.integer.IntegerChromosome;
 import com.jrmouro.genetic.integer.IntegerGeneticAlgorithm;
 import com.jrmouro.genetic.integer.TargetMinStoppingCondition;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import com.jrmouro.genetic.integer.IntegerCrossover;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -69,11 +69,13 @@ public class IntegerGAJUnitTest {
             int beg = -1;
             int prev = -1;
 
-            int t = chromosome.getRepresentation().size();
+            
+            
+            List<Integer> repr = chromosome.getGenotype();
 
-            for (int u = 0; u < t; u++) {
+            for (int u = 0; u < repr.size(); u++) {
 
-                int r = chromosome.getRepresentation().get(u);
+                int r = repr.get(u);
                 int i = 0;
 
                 while (true) {
@@ -223,9 +225,9 @@ public class IntegerGAJUnitTest {
                 20, //population size
                 5,
                 30, //population limit
-                new ValidityRepresentation<Integer>() {
+                new ValidityGenotype<Integer>() {
                     @Override
-                    public boolean isValid(List<Integer> representation) {
+                    public boolean isGenotypeValid(List<Integer> representation) {
                         return true;
                     }
                 },

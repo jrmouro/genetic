@@ -5,10 +5,11 @@
  */
 package com.jrmouro.genetic.similarity;
 
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.evolutionstrategies.chromosome.ChromosomeOne;
 import com.jrmouro.genetic.evolutionstrategies.evolution.IevolutionFunction;
 import com.jrmouro.genetic.fitnessfunction.SimilarityFitnessFunction;
+import java.util.List;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -18,7 +19,7 @@ public class SimilarityEvolution implements Runnable {
 
     final IevolutionFunction<Double> evolution;
     final SimilarityFitnessFunction fitness;
-    final ValidityRepresentation<Double> validityRepresentation;
+    final ValidityGenotype<Double> validityRepresentation;
     final int generations;
     final boolean max;
     final double[] weights;
@@ -32,7 +33,7 @@ public class SimilarityEvolution implements Runnable {
             int generations,
             double chromosomeSd,
             boolean max,
-            ValidityRepresentation<Double> validityRepresentation
+            ValidityGenotype<Double> validityRepresentation
     ) {
         this.evolution = evolution;
         this.fitness = new SimilarityFitnessFunction(matrix, result);
@@ -50,10 +51,12 @@ public class SimilarityEvolution implements Runnable {
     @Override
     public void run() {                               
         
-        chromosomeOne = (ChromosomeOne) evolution.evolve(chromosomeOne, generations, max);        
+        chromosomeOne = (ChromosomeOne) evolution.evolve(chromosomeOne, generations, max);     
+        
+        List<Double> repr = chromosomeOne.getGenotype();
         
         for (int k = 0; k < this.weights.length; k++)            
-            weights[k] = chromosomeOne.getRepresentation().get(k);    
+            weights[k] = repr.get(k);    
         
         System.out.println("Chromosome: " + chromosomeOne);
         

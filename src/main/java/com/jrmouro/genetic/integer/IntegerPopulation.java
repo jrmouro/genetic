@@ -6,7 +6,6 @@
 package com.jrmouro.genetic.integer;
 
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +19,7 @@ import org.apache.commons.math3.exception.NumberIsTooLargeException;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.ListPopulation;
 import org.apache.commons.math3.genetics.Population;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -89,7 +89,7 @@ public class IntegerPopulation extends ListPopulation {
             int sizeChromosome, 
             int leftBound, 
             int rightBound,
-            ValidityRepresentation<Integer> validityRepresentation) {
+            ValidityGenotype<Integer> validityRepresentation) {
         
         List<Chromosome> ret = new ArrayList();
         Random r = new Random();

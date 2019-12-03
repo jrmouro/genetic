@@ -5,7 +5,6 @@
  */
 package com.jrmouro.genetic.differentialevolution;
 
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import org.apache.commons.math3.exception.NotPositiveException;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.ListPopulation;
 import org.apache.commons.math3.genetics.Population;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -45,7 +45,7 @@ public class DifferentialPopulation extends ListPopulation{
             int sizeChromosome,
             double boundLeft, 
             double boundRight, 
-            ValidityRepresentation<Double> validityRepresentation){
+            ValidityGenotype<Double> validityRepresentation){
         List<Chromosome> ret = new ArrayList();
         for (int i = 0; i < size; i++) {
             ret.add(DifferentialChromosome.getRandom(factorDifference, fitnessFunction, sizeChromosome, boundLeft, boundRight, validityRepresentation));
@@ -60,7 +60,7 @@ public class DifferentialPopulation extends ListPopulation{
             int sizeChromosome,
             double boundLeft, 
             double boundRight, 
-            ValidityRepresentation<Double> validityRepresentation){
+            ValidityGenotype<Double> validityRepresentation){
         List<Chromosome> ret = new ArrayList();
         for (int i = 0; i < size; i++) {
             ret.add(DifferentialChromosome.getRandom(new Random().nextDouble(), fitnessFunction, sizeChromosome, boundLeft, boundRight, validityRepresentation));

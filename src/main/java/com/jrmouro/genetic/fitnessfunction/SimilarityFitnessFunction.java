@@ -6,6 +6,7 @@
 package com.jrmouro.genetic.fitnessfunction;
 
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,8 +47,9 @@ public final class SimilarityFitnessFunction implements FitnessFunction<Double> 
     @Override
     public double fitness(ChromosomeAbstract<Double> chromosome) {
         Double ss = 0.0;
-        Double[] w = new Double[chromosome.getRepresentation().size()];
-        w = (Double[]) chromosome.getRepresentation().toArray(w);
+        List<Double> repr = chromosome.getGenotype();
+        Double[] w = new Double[repr.size()];
+        w = (Double[]) repr.toArray(w);
         if (result != null && w.length >= result.length) {
             int j = 0;
             for (double[] ts : matrix) {

@@ -7,13 +7,13 @@ package com.jrmouro.genetic.integer;
 
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -29,7 +29,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
             List<Integer> representation, 
             int leftBound, 
             int rightBound, 
-            ValidityRepresentation<Integer> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Integer> validityRepresentation) throws InvalidRepresentationException {
         super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
@@ -41,7 +41,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
             Integer[] representation, 
             int leftBound, 
             int rightBound, 
-            ValidityRepresentation<Integer> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Integer> validityRepresentation) throws InvalidRepresentationException {
         super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
@@ -54,7 +54,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
             boolean copyList, 
             int leftBound, 
             int rightBound, 
-            ValidityRepresentation<Integer> validityRepresentation) {
+            ValidityGenotype<Integer> validityRepresentation) {
         super(representation, copyList, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
         this.leftBound = leftBound;
@@ -104,7 +104,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
             int size, 
             int leftBound, 
             int rightBound, 
-            ValidityRepresentation<Integer> validityRepresentation) {
+            ValidityGenotype<Integer> validityRepresentation) {
 
         List<Integer> list = new ArrayList();
         
@@ -141,7 +141,7 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
 
     @Override
     public ChromosomeAbstract<Integer> normalize() {
-        List<Integer> list = this.getCopyListUtil();
+        List<Integer> list = this.getGenotype();
         Integer min = list.get(0);
         Integer max = list.get(0);
         for (Integer d : list) {

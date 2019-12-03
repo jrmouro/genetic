@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author ronaldo
  */
-public interface ValidityRepresentation<T> {
-    public boolean isValid(List<T> representation); 
+public interface ValidityGenotype<T> {
+    public boolean isGenotypeValid(List<T> representation); 
 }

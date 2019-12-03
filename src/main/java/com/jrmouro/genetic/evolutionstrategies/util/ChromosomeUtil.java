@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface ChromosomeUtil<T> {
     
-    public List<T> getCopyListUtil();
+    public List<T> getGenotype();
+    public int getGenotypeSize();
     
 }

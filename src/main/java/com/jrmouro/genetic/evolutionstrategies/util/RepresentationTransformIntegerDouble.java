@@ -13,15 +13,15 @@ import java.util.List;
  *
  * @author ronaldo
  */
-public class RepresentationTransformIntegerDouble implements RepresentationTransform<Integer,Double>{
+public class RepresentationTransformIntegerDouble extends RepresentationTransform<Integer,Double>{
 
     @Override
     public List<Integer> get(ChromosomeAbstract<Double> chromosome, int ini, int fim) {
         List<Integer> ret = new ArrayList();
-        int t = chromosome.getRepresentation().size();
+        List<Double> repr = chromosome.getGenotype();        
         int s = fim - ini;
-        for (int i = ini; i < fim && i < t; i++) {
-            ret.add((int)(s*chromosome.getRepresentation().get(i)));
+        for (int i = ini; i < fim && i < repr.size(); i++) {
+            ret.add((int)(s*repr.get(i)));
         }
         return ret;
     }

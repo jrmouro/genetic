@@ -6,7 +6,6 @@
 package com.jrmouro.genetic.differentialevolution;
 
 import com.jrmouro.genetic.chromosome.ChromosomeDouble;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.Random;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -28,7 +28,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             double factorDifference, 
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
@@ -37,7 +37,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             double factorDifference, 
             Double[] representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
@@ -47,7 +47,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             List<Double> representation, 
             boolean copyList, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) {
+            ValidityGenotype<Double> validityRepresentation) {
         super(representation, copyList, fitnessFunction, validityRepresentation);
         this.factorDifference = factorDifference;
     }
@@ -94,7 +94,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
     }
 
     @Override
-    public List<Double> getCopyListUtil() {
+    public List<Double> getGenotype() {
         List<Double> ret = new ArrayList();   
         for(double d: this.getRepresentation())
             ret.add(d);
@@ -112,7 +112,7 @@ public class DifferentialChromosome extends ChromosomeDouble{
             int size, 
             double boundLeft, 
             double boundRight, 
-            ValidityRepresentation<Double> validityRepresentation){
+            ValidityGenotype<Double> validityRepresentation){
         List<Double> ret = new ArrayList();
         Random r = new Random();
         for (int i = 0; i < size; i++) {

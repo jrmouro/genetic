@@ -6,12 +6,12 @@
 package com.jrmouro.genetic.integer;
 
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import org.apache.commons.math3.exception.OutOfRangeException;
 import org.apache.commons.math3.genetics.CrossoverPolicy;
 import org.apache.commons.math3.genetics.GeneticAlgorithm;
 import org.apache.commons.math3.genetics.StoppingCondition;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -25,7 +25,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
     public IntegerGeneticAlgorithm( int populationSize, 
                                     int populationReuse, 
                                     int populationLimit, 
-                                    ValidityRepresentation<Integer> validityRepresentation,
+                                    ValidityGenotype<Integer> validityRepresentation,
                                     FitnessFunction<Integer> fitnessFunction, 
                                     int sizeChromosome, 
                                     int leftBoundChromosome, 
@@ -58,7 +58,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
     public IntegerGeneticAlgorithm( int populationSize, 
                                     int populationReuse,
                                     int populationLimit, 
-                                    ValidityRepresentation<Integer> validityRepresentation,
+                                    ValidityGenotype<Integer> validityRepresentation,
                                     FitnessFunction fitnessFunction, 
                                     int sizeChromosome, 
                                     int leftBoundChromosome, 

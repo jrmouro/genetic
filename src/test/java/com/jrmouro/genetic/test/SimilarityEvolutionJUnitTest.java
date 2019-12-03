@@ -5,11 +5,11 @@
  */
 package com.jrmouro.genetic.test;
 
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.evolutionstrategies.evolution.EvolutionScoutSniffer;
 import com.jrmouro.genetic.similarity.SimilarityEvolution;
 import java.util.List;
 import org.junit.Test;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -49,9 +49,9 @@ public class SimilarityEvolutionJUnitTest {
                 2000,
                 0.1,
                 true,
-                new ValidityRepresentation<Double>() {
+                new ValidityGenotype<Double>() {
                     @Override
-                    public boolean isValid(List<Double> representation) {
+                    public boolean isGenotypeValid(List<Double> representation) {
                         
                         for (Double d : representation)
                             if(d < 0.0 || d > 1.0)

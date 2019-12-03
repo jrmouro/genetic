@@ -30,7 +30,7 @@ public class TravelerFitnessDouble implements FitnessFunction<Double> {
         
         boolean[] mark = new boolean[this.matrix.length];
 
-        List<Integer> listInt = transform.get(chromosome.normalize(), 0, chromosome.getRepresentation().size() - 1);
+        List<Integer> listInt = transform.get(chromosome.normalize());
 
         for (int i = 0; i < this.matrix.length; i++) {
             mark[i] = false;
@@ -94,7 +94,7 @@ public class TravelerFitnessDouble implements FitnessFunction<Double> {
             
             RepresentationTransform<Integer,Double> transform = new RepresentationTransformIntegerDouble();
             
-            List<Integer> li = transform.get(chromosome, 0, chromosome.getRepresentation().size()-1);
+            List<Integer> li = transform.get(chromosome);
             
             List<Integer> ret = new ArrayList();
             

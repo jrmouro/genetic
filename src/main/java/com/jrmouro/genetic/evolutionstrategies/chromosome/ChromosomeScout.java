@@ -9,13 +9,13 @@ import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import com.jrmouro.genetic.chromosome.ChromosomeDouble;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
 import com.jrmouro.genetic.chromosome.ChromosomeValidity;
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -27,7 +27,7 @@ public class ChromosomeScout extends ChromosomeOne {
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
             double sd, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, sd, validityRepresentation);
 
     }
@@ -36,7 +36,7 @@ public class ChromosomeScout extends ChromosomeOne {
             double sd, 
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(sd, representation, fitnessFunction, validityRepresentation);
 
     }
@@ -45,7 +45,7 @@ public class ChromosomeScout extends ChromosomeOne {
             double[] representation, 
             FitnessFunction fitnessFunction, 
             double sd, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, fitnessFunction, sd, validityRepresentation);
 
     }

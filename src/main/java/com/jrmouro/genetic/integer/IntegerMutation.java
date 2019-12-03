@@ -5,7 +5,6 @@
  */
 package com.jrmouro.genetic.integer;
 
-import com.jrmouro.genetic.chromosome.ValidityRepresentation;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.logging.Logger;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.genetics.Chromosome;
 import org.apache.commons.math3.genetics.MutationPolicy;
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
@@ -43,7 +43,7 @@ public class IntegerMutation implements MutationPolicy{
         Random rand = new Random();
         
         FitnessFunction f = ((IntegerChromosome)original).getFitnessFunction();  
-        ValidityRepresentation<Integer> v = ((IntegerChromosome)original).getValidityRepresentation();
+        ValidityGenotype<Integer> v = ((IntegerChromosome)original).getValidityRepresentation();
         int t = ((IntegerChromosome)original).getListRepresentation().size();
         int l = ((IntegerChromosome)original).getLeftBound();
         int r = ((IntegerChromosome)original).getRightBound();

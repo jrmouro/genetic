@@ -24,7 +24,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
     public ChromosomeDouble(
             List<Double> representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
@@ -32,7 +32,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
     public ChromosomeDouble(
             Double[] representation, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) throws InvalidRepresentationException {
+            ValidityGenotype<Double> validityRepresentation) throws InvalidRepresentationException {
         super(representation, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
@@ -41,7 +41,7 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
             List<Double> representation, 
             boolean copyList, 
             FitnessFunction fitnessFunction, 
-            ValidityRepresentation<Double> validityRepresentation) {
+            ValidityGenotype<Double> validityRepresentation) {
         super(representation, copyList, validityRepresentation);
         this.fitnessFunction = fitnessFunction;
     }
@@ -49,13 +49,6 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
     public FitnessFunction getFitnessFunction() {
         return fitnessFunction;
     }  
-       
-
-    @Override
-    public List<Double> getRepresentation() {
-        return super.getRepresentation();
-    }
-    
        
     @Override
     protected void checkValidity(List<Double> chromosomeRepresentation) throws InvalidRepresentationException {}
@@ -90,18 +83,10 @@ public class ChromosomeDouble extends ChromosomeAbstract<Double>{
         return this;
         
     }
-
-    @Override
-    public List<Double> getCopyListUtil() {
-        List<Double> ret = new ArrayList();   
-        for(double d: this.getRepresentation())
-            ret.add(d);
-        return ret;
-    }
-
+    
     @Override
     public ChromosomeAbstract<Double> normalize() {
-        List<Double> list = this.getCopyListUtil();
+        List<Double> list = this.getGenotype();
         Double min = list.get(0);
         Double max = list.get(0);
         for (Double d : list) {
