@@ -42,7 +42,4 @@ public class DifferentialGeneticAlgorithm extends GeneticAlgorithm{
     }
 
     
-    
-    
-    
 }
