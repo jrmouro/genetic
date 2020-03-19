@@ -12,9 +12,9 @@ import org.apache.commons.math3.genetics.FixedGenerationCount;
  *
  * @author ronaldo
  */
-public class IntegerStoppingCondition extends FixedGenerationCount{
+public class IntegerFixedGenerationCount extends FixedGenerationCount{
     
-    public IntegerStoppingCondition(int maxGenerations) throws NumberIsTooSmallException {
+    public IntegerFixedGenerationCount(int maxGenerations) throws NumberIsTooSmallException {
         super(maxGenerations);
     }
     

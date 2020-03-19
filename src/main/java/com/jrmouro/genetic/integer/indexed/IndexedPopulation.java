@@ -70,7 +70,7 @@ public class IndexedPopulation extends IntegerPopulation {
         for (int i = 0; i < size; i++) {
             ret.add(IndexedChromosome.getIndexedRandom(fitnessFunction, sizeChromosome));
         }
-        return new IntegerPopulation(reuse, ret, populationLimit);
+        return new IndexedPopulation(reuse, ret, populationLimit);
     }
 
 

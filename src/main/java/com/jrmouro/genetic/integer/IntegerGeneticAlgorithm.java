@@ -12,6 +12,8 @@ import org.apache.commons.math3.genetics.CrossoverPolicy;
 import org.apache.commons.math3.genetics.GeneticAlgorithm;
 import org.apache.commons.math3.genetics.StoppingCondition;
 import com.jrmouro.genetic.chromosome.ValidityGenotype;
+import org.apache.commons.math3.genetics.MutationPolicy;
+import org.apache.commons.math3.genetics.SelectionPolicy;
 
 /**
  *
@@ -21,6 +23,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
     
     private IntegerPopulation initialPolulation = null;
     private StoppingCondition stoppingCondition = null;
+    
     
     public IntegerGeneticAlgorithm( int populationSize, 
                                     int populationReuse, 
@@ -37,11 +40,11 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
                                     double mutationRateGene,
                                     int aritySelection
     ) throws OutOfRangeException {
-        super(  new IntegerCrossover(crossoverPoints), 
+        super(  new IntegerNPointCrossover(crossoverPoints), 
                 crossoverRate, 
                 new IntegerMutation(mutationRateGene), 
                 mutationRate, 
-                new IntegerSelection(aritySelection));
+                new IntegerTournamentSelection(aritySelection));
         
         this.initialPolulation = IntegerPopulation.getRandom( populationSize, 
                                                     populationReuse,
@@ -52,7 +55,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
                                                     rightBoundChromosome,
                                                     validityRepresentation);
         
-        this.stoppingCondition = new IntegerStoppingCondition(generations);
+        this.stoppingCondition = new IntegerFixedGenerationCount(generations);
     }
     
     public IntegerGeneticAlgorithm( int populationSize, 
@@ -74,7 +77,7 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
                 crossoverRate, 
                 new IntegerMutation(mutationRateGene), 
                 mutationRate, 
-                new IntegerSelection(aritySelection));
+                new IntegerTournamentSelection(aritySelection));
         
         this.initialPolulation = IntegerPopulation.getRandom( populationSize, 
                                                     populationReuse,
@@ -102,15 +105,33 @@ public class IntegerGeneticAlgorithm extends GeneticAlgorithm{
                                     double mutationRateGene,
                                     int aritySelection
     ){
-        super(  new IntegerCrossover(crossoverPoints), 
+        super(  new IntegerNPointCrossover(crossoverPoints), 
                 crossoverRate, 
                 new IntegerMutation(mutationRateGene), 
                 mutationRate, 
-                new IntegerSelection(aritySelection));
+                new IntegerTournamentSelection(aritySelection));
         
         this.initialPolulation = initialPolulation;
         
-        this.stoppingCondition = new IntegerStoppingCondition(generations);
+        this.stoppingCondition = new IntegerFixedGenerationCount(generations);
+    }
+    
+    public IntegerGeneticAlgorithm( IntegerPopulation initialPolulation,  
+                                    IntegerMutation mutationPolicy,
+                                    CrossoverPolicy crossoverPolicy,
+                                    SelectionPolicy selectionPolicy,
+                                    StoppingCondition stoppingCondition,
+                                    double crossoverRate, 
+                                    double mutationRate
+    ){
+        super(  crossoverPolicy, 
+                crossoverRate, 
+                mutationPolicy, 
+                mutationRate, 
+                selectionPolicy);
+        
+        this.initialPolulation = initialPolulation;        
+        this.stoppingCondition = stoppingCondition;
     }
 
     

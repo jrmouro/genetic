@@ -10,7 +10,7 @@ import com.jrmouro.genetic.integer.IntegerGeneticAlgorithm;
 import com.jrmouro.genetic.integer.TargetMinStoppingCondition;
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
-import com.jrmouro.genetic.integer.IntegerCrossover;
+import com.jrmouro.genetic.integer.IntegerNPointCrossover;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -236,7 +236,7 @@ public class IntegerGAJUnitTest {
                 0, // left bound chromosome
                 10, // right bound chormosome
                 new TargetMinStoppingCondition(10.0),
-                new IntegerCrossover(5),
+                new IntegerNPointCrossover(5),
                 .3, // crossover rate
                 .5, // mutation rate
                 .3, // mutation arity

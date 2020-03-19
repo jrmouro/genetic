@@ -12,9 +12,9 @@ import org.apache.commons.math3.genetics.NPointCrossover;
  *
  * @author ronaldo
  */
-public class IntegerCrossover extends NPointCrossover<IntegerChromosome>{
+public class IntegerNPointCrossover extends NPointCrossover<IntegerChromosome>{
     
-    public IntegerCrossover(int crossoverPoints) throws NotStrictlyPositiveException {
+    public IntegerNPointCrossover(int crossoverPoints) throws NotStrictlyPositiveException {
         super(crossoverPoints);
     }
     

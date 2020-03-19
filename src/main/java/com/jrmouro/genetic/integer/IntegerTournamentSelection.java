@@ -11,9 +11,9 @@ import org.apache.commons.math3.genetics.TournamentSelection;
  *
  * @author ronaldo
  */
-public class IntegerSelection extends TournamentSelection{
+public class IntegerTournamentSelection extends TournamentSelection{
     
-    public IntegerSelection(int arity) {
+    public IntegerTournamentSelection(int arity) {
         super(arity);
     }
     
