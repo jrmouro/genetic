@@ -104,12 +104,10 @@ public class IndexedGeneticAlgorithm  extends GeneticAlgorithm{
         this.stoppingCondition = new IntegerStoppingCondition(generations);
     }
 
-    
-    
+        
     public IntegerPopulation run() {
         return (IntegerPopulation)this.evolve(initialPolulation, stoppingCondition);
     }
-    
-    
+       
     
 }
