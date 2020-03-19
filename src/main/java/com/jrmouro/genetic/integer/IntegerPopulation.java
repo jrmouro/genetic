@@ -28,7 +28,6 @@ import com.jrmouro.genetic.chromosome.ValidityGenotype;
 public class IntegerPopulation extends ListPopulation {
 
     final int reuse;
-    //Chromosome best = null;
 
     public IntegerPopulation(int reuse, int populationLimit) throws NotPositiveException {
         super(populationLimit);
@@ -92,12 +91,13 @@ public class IntegerPopulation extends ListPopulation {
             ValidityGenotype<Integer> validityRepresentation) {
         
         List<Chromosome> ret = new ArrayList();
-        Random r = new Random();
         for (int i = 0; i < size; i++) {
             ret.add(IntegerChromosome.getRandom(fitnessFunction, sizeChromosome, leftBound, rightBound, validityRepresentation));
         }
         return new IntegerPopulation(reuse, ret, populationLimit);
     }
+    
+    
 
     @Override
     public String toString() {
@@ -108,7 +108,7 @@ public class IntegerPopulation extends ListPopulation {
             ret += "\t" + chromosome.toString() + "\n";
         }
 
-        return ret; //To change body of generated methods, choose Tools | Templates.
+        return ret;
     }
 
     @Override

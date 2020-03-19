@@ -6,7 +6,6 @@
 package com.jrmouro.genetic.integer;
 
 import com.jrmouro.genetic.chromosome.ChromosomeAbstract;
-import com.jrmouro.genetic.chromosome.ChromosomeValidity;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import java.util.ArrayList;
 import java.util.List;

@@ -3,31 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jrmouro.genetic.integer;
+package com.jrmouro.genetic.integer.indexed;
 
+import com.jrmouro.genetic.chromosome.ValidityGenotype;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
+import com.jrmouro.genetic.integer.IntegerChromosome;
+import com.jrmouro.genetic.integer.IntegerMutation;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.genetics.Chromosome;
-import org.apache.commons.math3.genetics.MutationPolicy;
-import com.jrmouro.genetic.chromosome.ValidityGenotype;
 
 /**
  *
  * @author ronaldo
  */
-public class IntegerMutation implements MutationPolicy{
+public class IndexedMutation extends IntegerMutation{
     
-    final protected double rate;
-
-    public IntegerMutation(double rate) {
-        this.rate = rate;
+    public IndexedMutation(double rate) {
+        super(rate);
     }
-      
 
     @Override
     public Chromosome mutate(Chromosome original) throws MathIllegalArgumentException {
@@ -44,25 +43,31 @@ public class IntegerMutation implements MutationPolicy{
         
         FitnessFunction f = ((IntegerChromosome)original).getFitnessFunction();  
         ValidityGenotype<Integer> v = ((IntegerChromosome)original).getValidityRepresentation();
-        int t = ((IntegerChromosome)original).getListRepresentation().size();
         int l = ((IntegerChromosome)original).getLeftBound();
         int r = ((IntegerChromosome)original).getRightBound();
         
-        IntegerChromosome c = IntegerChromosome.getRandom(f, t, l, r, v);
-                
-        List<Integer> list = new ArrayList();
+        List<Integer> representation = new ArrayList(((IntegerChromosome)original).getListRepresentation());
         
-        int i = 0;
-        for (Integer integer : ((IntegerChromosome)original).getListRepresentation()) {
-            if(rand.nextDouble() < this.rate)
-                list.add(c.getListRepresentation().get(i));
-            else
-                list.add(integer);
-            i++;
+        int n = (int)(this.rate * (double)representation.size());
+        if(n > representation.size())
+            n = representation.size();
+        else if(n < 0)
+            n = 0;
+        
+        int ini = rand.nextInt(representation.size() - n);
+        List<Integer> aux = new ArrayList();
+        for (int i = 0; i < n; i++) {
+            aux.add(representation.get(ini + i));
         }
-                
-        return new IntegerChromosome(f, list, l, r, v);
+        Collections.shuffle(aux);
+        for (int i = 0; i < n; i++) {
+            representation.set(ini + i, aux.get(i));
+        }
+        
+        return new IntegerChromosome(f, representation, l, r, v);
         
     }
+    
+    
     
 }

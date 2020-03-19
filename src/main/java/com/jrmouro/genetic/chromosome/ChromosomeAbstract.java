@@ -54,9 +54,6 @@ public abstract class ChromosomeAbstract<T> extends AbstractListChromosome<T> im
         return this.getRepresentation().size();
     }
 
-    
-    
-    
     @Override
     public boolean isValid() {
         return this.validityRepresentation.isGenotypeValid(this.getGenotype());
