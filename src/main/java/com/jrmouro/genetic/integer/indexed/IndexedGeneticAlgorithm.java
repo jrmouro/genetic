@@ -32,9 +32,7 @@ public class IndexedGeneticAlgorithm  extends IntegerGeneticAlgorithm{
             int crossoverPoints,
             int aritySelection,
             int generations,
-            FitnessFunction fitnessFunction,  
-            SelectionPolicy selectionPolicy, 
-            StoppingCondition stoppingCondition,
+            FitnessFunction fitnessFunction, 
             double crossoverRate, 
             double mutationRate,
             double mutationRateGene) throws OutOfRangeException {
