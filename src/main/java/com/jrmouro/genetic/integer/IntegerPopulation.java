@@ -97,6 +97,24 @@ public class IntegerPopulation extends ListPopulation {
         return new IntegerPopulation(reuse, ret, populationLimit);
     }
     
+    public static IntegerPopulation getFitnessRandom(
+            int size, 
+            int reuse, 
+            int populationLimit, 
+            IntegerChromosome fitnessChromosome) {
+        
+        List<Chromosome> ret = new ArrayList();
+        ret.add(fitnessChromosome);
+        for (int i = 0; i < size - 1; i++) {
+            ret.add(IntegerChromosome.getRandom(
+                    fitnessChromosome.getFitnessFunction(), 
+                    fitnessChromosome.getGenotypeSize(),
+                    fitnessChromosome.getLeftBound(), 
+                    fitnessChromosome.getRightBound(), 
+                    fitnessChromosome.getValidityRepresentation()));
+        }
+        return new IntegerPopulation(reuse, ret, populationLimit);
+    }
     
 
     @Override

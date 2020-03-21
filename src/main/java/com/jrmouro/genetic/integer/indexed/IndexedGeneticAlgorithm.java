@@ -26,6 +26,30 @@ public class IndexedGeneticAlgorithm  extends IntegerGeneticAlgorithm{
        
     
     public IndexedGeneticAlgorithm(
+            IndexedChromosome fitnessChromosome,
+            int populationSize, 
+            int populationReuse,              
+            int crossoverPoints,
+            int aritySelection,
+            int generations,            
+            double crossoverRate, 
+            double mutationRate,
+            double mutationRateGene) throws OutOfRangeException {
+        
+        super(IndexedPopulation.getFitnessIndexedRandom(
+                    populationSize, 
+                    populationReuse, 
+                    populationSize, 
+                    fitnessChromosome),
+                new IndexedMutation(mutationRateGene),  
+                new IntegerNPointCrossover(crossoverPoints), 
+                new IntegerTournamentSelection(aritySelection), 
+                new IntegerFixedGenerationCount(generations),
+                crossoverRate, 
+                mutationRate);
+    }
+    
+    public IndexedGeneticAlgorithm(
             int populationSize, 
             int populationReuse, 
             int sizeChromosome, 

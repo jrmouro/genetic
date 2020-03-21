@@ -72,6 +72,23 @@ public class IndexedPopulation extends IntegerPopulation {
         }
         return new IndexedPopulation(reuse, ret, populationLimit);
     }
+    
+    public static IntegerPopulation getFitnessIndexedRandom(
+            int size,
+            int reuse,
+            int populationLimit,
+            IndexedChromosome fitnessChromosome) {
+
+        List<Chromosome> ret = new ArrayList();
+        Random r = new Random();
+        ret.add(fitnessChromosome);
+        for (int i = 0; i < size - 1; i++) {
+            ret.add(IndexedChromosome.getIndexedRandom(
+                    fitnessChromosome.getFitnessFunction(), 
+                    fitnessChromosome.getGenotypeSize()));
+        }
+        return new IndexedPopulation(reuse, ret, populationLimit);
+    }
 
 
 

@@ -13,6 +13,8 @@ import java.util.Random;
 import org.apache.commons.math3.genetics.AbstractListChromosome;
 import org.apache.commons.math3.genetics.InvalidRepresentationException;
 import com.jrmouro.genetic.chromosome.ValidityGenotype;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -84,7 +86,14 @@ public class IntegerChromosome extends ChromosomeAbstract<Integer> {
 
     @Override
     protected void checkValidity(List<Integer> chromosomeRepresentation) throws InvalidRepresentationException {
-
+        if(this.getValidityRepresentation() != null)
+            if(!this.getValidityRepresentation().isGenotypeValid(chromosomeRepresentation)){
+                try {
+                    throw new Exception("Invalid representation");
+                } catch (Exception ex) {
+                    Logger.getLogger(IntegerChromosome.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
     }
 
     @Override

@@ -5,14 +5,12 @@
  */
 package com.jrmouro.genetic.integer;
 
-import com.jrmouro.genetic.chromosome.ChromosomeValidity;
 import com.jrmouro.genetic.fitnessfunction.FitnessFunction;
 import org.apache.commons.math3.exception.OutOfRangeException;
 import org.apache.commons.math3.genetics.CrossoverPolicy;
 import org.apache.commons.math3.genetics.GeneticAlgorithm;
 import org.apache.commons.math3.genetics.StoppingCondition;
 import com.jrmouro.genetic.chromosome.ValidityGenotype;
-import org.apache.commons.math3.genetics.MutationPolicy;
 import org.apache.commons.math3.genetics.SelectionPolicy;
 
 /**
